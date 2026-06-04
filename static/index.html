@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudflared 隧道</title>
+    <link rel="stylesheet" href="static/css/fonts.css">
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- App Bar -->
+<div class="app-bar">
+    <h1>Cloudflared 隧道</h1>
+</div>
+
+<!-- Tab Content -->
+<div class="tab-content">
+
+    <!-- 首页 -->
+    <div id="tab-home" class="tab-page active">
+        <div class="container">
+
+            <!-- 状态卡片 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="material-symbols-outlined">info</span>
+                    <span class="card-title">状态</span>
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="info-label">cloudflared</span>
+                        <span class="info-value">
+                            <span id="status-dot" class="status-dot stopped"></span>
+                            <span id="status-text">检查中...</span>
+                        </span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">版本</span>
+                        <span class="info-value" id="installed-version">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 隧道控制卡片 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="material-symbols-outlined">tunnel</span>
+                    <span class="card-title">隧道控制</span>
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="info-label">端口</span>
+                        <span class="info-value" id="server-port">58091</span>
+                    </div>
+                    <div class="action-row">
+                        <button id="btn-start" class="btn-filled" disabled>
+                            <span class="material-symbols-outlined">play_arrow</span>
+                            启动隧道
+                        </button>
+                        <button id="btn-stop" class="btn-filled btn-error hidden">
+                            <span class="material-symbols-outlined">stop</span>
+                            停止
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 隧道信息卡片 -->
+            <div id="tunnel-card" class="card hidden">
+                <div class="card-header">
+                    <span class="material-symbols-outlined">language</span>
+                    <span class="card-title">隧道信息</span>
+                </div>
+                <div class="card-body">
+                    <div id="tunnel-url" class="tunnel-url hidden">
+                        <span class="material-symbols-outlined" style="font-size:18px;flex-shrink:0;">link</span>
+                        <a id="tunnel-link" href="#" target="_blank"></a>
+                        <button id="btn-copy-url" class="btn-copy" title="复制">
+                            <span class="material-symbols-outlined" style="font-size:18px;">content_copy</span>
+                        </button>
+                    </div>
+
+                    <!-- 运行日志 -->
+                    <div style="margin-top:16px;">
+                        <span class="info-label">运行日志</span>
+                        <div id="log-output" class="log-output"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 设置页 -->
+    <div id="tab-settings" class="tab-page">
+        <div class="container">
+
+            <!-- 版本信息卡片 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="material-symbols-outlined">update</span>
+                    <span class="card-title">版本信息</span>
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="info-label">最新版本</span>
+                        <span class="info-value" id="latest-version">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 下载管理卡片 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="material-symbols-outlined">download</span>
+                    <span class="card-title">下载安装</span>
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="info-label">平台</span>
+                        <span class="info-value">
+                            <span id="detected-platform" class="platform-badge">检测中...</span>
+                        </span>
+                    </div>
+                    <div class="action-row">
+                        <button id="btn-download" class="btn-filled" disabled>
+                            <span class="material-symbols-outlined">download</span>
+                            下载最新版本
+                        </button>
+                    </div>
+                    <div id="download-progress" class="progress-linear hidden">
+                        <div class="progress-linear-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 手动下载卡片 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="material-symbols-outlined">link</span>
+                    <span class="card-title">手动下载</span>
+                </div>
+                <div class="card-body">
+                    <p style="color:var(--md-on-surface-variant);font-size:14px;margin:0 0 12px;">
+                        如果自动下载失败，可以手动下载后通过其他方式安装。
+                    </p>
+                    <div class="info-row" style="flex-direction:column;align-items:flex-start;gap:8px;">
+                        <span class="info-label">下载链接</span>
+                        <span class="info-value" style="display:flex;align-items:flex-start;gap:8px;width:100%;">
+                            <a id="manual-download-link" href="#" style="color:var(--md-primary);text-decoration:none;word-break:break-all;font-size:12px;flex:1;">加载中...</a>
+                            <button id="btn-copy-link" class="btn-copy" title="复制链接" style="flex-shrink:0;">
+                                <span class="material-symbols-outlined" style="font-size:16px;">content_copy</span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- Tab Bar (Bottom Navigation) -->
+<div class="tab-bar">
+    <button class="tab-item active" data-tab="home">
+        <span class="material-symbols-outlined">home</span>
+        <span>首页</span>
+    </button>
+    <button class="tab-item" data-tab="settings">
+        <span class="material-symbols-outlined">settings</span>
+        <span>设置</span>
+    </button>
+</div>
+
+<!-- Snackbar -->
+<div id="snackbar" class="snackbar"></div>
+
+<!-- Scripts -->
+<script type="module" src="static/js/app.js"></script>
+
+</body>
+</html>

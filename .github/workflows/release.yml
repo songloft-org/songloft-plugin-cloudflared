@@ -1,0 +1,48 @@
+name: Release Plugin
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Plugin version (e.g. 1.0.0). Leave blank to auto-use plugin.json version.'
+        required: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Resolve version
+        id: version
+        run: |
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            VERSION=$(node -p "require('./plugin.json').version")
+          fi
+          ENTRY_PATH=$(node -p "require('./plugin.json').entryPath")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "entryPath=$ENTRY_PATH" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="jsplugin-${{ steps.version.outputs.entryPath }}-${{ steps.version.outputs.version }}"
+          gh release create "$TAG" \
+            "dist/${{ steps.version.outputs.entryPath }}.jsplugin.zip" \
+            --title "$TAG" \
+            --generate-notes

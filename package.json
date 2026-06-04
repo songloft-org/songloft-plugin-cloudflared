@@ -1,0 +1,17 @@
+{
+  "name": "cloudflared",
+  "version": "0.1.0",
+  "description": "通过 Cloudflare Tunnel 将本地 Songloft 服务暴露到公",
+  "private": true,
+  "scripts": {
+    "build": "songloft-plugin build",
+    "dev": "songloft-plugin dev",
+    "validate": "songloft-plugin validate",
+    "publish:release": "songloft-plugin publish"
+  },
+  "devDependencies": {
+    "@songloft/plugin-builder": "file:../../plugin-toolchain/packages/plugin-builder",
+    "@songloft/plugin-sdk": "file:../../plugin-toolchain/packages/plugin-sdk",
+    "typescript": "^5.7.0"
+  }
+}
