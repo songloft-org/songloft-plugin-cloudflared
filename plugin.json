@@ -10,7 +10,7 @@
   "main": "main.js",
   "minHostVersion": "1.3.0",
   "permissions": ["storage","command","fs"],
-  "updateUrl": "",
+  "updateUrl": "https://raw.githubusercontent.com/songloft-org/songloft-plugin-cloudflared/main/manifest.json",
   "entryHash": "",
   "zipHash": ""
 }
