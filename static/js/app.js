@@ -73,8 +73,8 @@ function switchTab(tabName) {
     document.querySelectorAll('.tab-item').forEach(tab => {
         tab.classList.toggle('active', tab.dataset.tab === tabName);
     });
-    document.querySelectorAll('.tab-page').forEach(page => {
-        page.classList.toggle('active', page.id === 'tab-' + tabName);
+    document.querySelectorAll('.tab-content').forEach(el => {
+        el.classList.toggle('active', el.id === 'tab-' + tabName);
     });
 
     if (tabName === 'settings') {

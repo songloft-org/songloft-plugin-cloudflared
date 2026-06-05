@@ -6,6 +6,7 @@
     <title>Cloudflared 隧道</title>
     <link rel="stylesheet" href="static/css/fonts.css">
     <link rel="stylesheet" href="static/css/style.css">
+    <script>if(new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('embed')</script>
 </head>
 <body>
 
@@ -14,11 +15,8 @@
     <h1>Cloudflared 隧道</h1>
 </div>
 
-<!-- Tab Content -->
-<div class="tab-content">
-
-    <!-- 首页 -->
-    <div id="tab-home" class="tab-page active">
+<!-- 首页 -->
+<div class="tab-content active" id="tab-home">
         <div class="container">
 
             <!-- 状态卡片 -->
@@ -92,8 +90,8 @@
         </div>
     </div>
 
-    <!-- 设置页 -->
-    <div id="tab-settings" class="tab-page">
+<!-- 设置页 -->
+<div class="tab-content" id="tab-settings">
         <div class="container">
 
             <!-- 版本信息卡片 -->
@@ -149,8 +147,6 @@
 
         </div>
     </div>
-
-</div>
 
 <!-- Tab Bar (Bottom Navigation) -->
 <div class="tab-bar">
