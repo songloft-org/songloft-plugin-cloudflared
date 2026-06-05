@@ -121,7 +121,15 @@ async function fetchLatestRelease(): Promise<{ tag_name: string; assets: Array<{
   return await resp.json() as any;
 }
 
-async function downloadBinary(platform: string): Promise<void> {
+function applyGithubProxy(url: string, proxyPrefix: string): string {
+  if (!proxyPrefix) return url;
+  if (proxyPrefix[proxyPrefix.length - 1] !== '/') {
+    proxyPrefix += '/';
+  }
+  return proxyPrefix + url;
+}
+
+async function downloadBinary(platform: string, githubProxy?: string): Promise<void> {
   const mapping = PLATFORM_ASSETS[platform];
   if (!mapping) throw new Error(`不支持的平台: ${platform}`);
 
@@ -129,15 +137,16 @@ async function downloadBinary(platform: string): Promise<void> {
   const asset = release.assets.find((a: any) => a.name === mapping.file);
   if (!asset) throw new Error(`未找到下载文件: ${mapping.file}`);
 
+  const downloadUrl = applyGithubProxy(asset.browser_download_url, githubProxy || '');
   const binName = platform.startsWith('windows') ? 'cloudflared.exe' : 'cloudflared';
 
   if (mapping.extract) {
-    await songloft.command.download(asset.browser_download_url, mapping.file, {
+    await songloft.command.download(downloadUrl, mapping.file, {
       extract: 'tgz',
       extractTarget: binName,
     });
   } else {
-    await songloft.command.download(asset.browser_download_url, binName);
+    await songloft.command.download(downloadUrl, binName);
   }
 
   if (!platform.startsWith('windows')) {
@@ -199,7 +208,9 @@ router.get('/api/tunnel-url', async () => {
 });
 
 router.post('/api/download', async (req) => {
-  const { platform } = JSON.parse(String(req.body));
+  const body = JSON.parse(String(req.body));
+  const platform = body.platform;
+  const githubProxy = body.github_proxy || '';
   if (!platform) {
     return jsonResponse({ error: '平台信息不能为空' }, 400);
   }
@@ -208,7 +219,7 @@ router.post('/api/download', async (req) => {
   }
 
   try {
-    await downloadBinary(platform);
+    await downloadBinary(platform, githubProxy);
     return jsonResponse({ data: { success: true, message: '下载完成' } });
   } catch (e: any) {
     return jsonResponse({ error: '下载失败: ' + (e.message || e) }, 500);

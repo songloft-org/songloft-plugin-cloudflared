@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('btn-stop').addEventListener('click', stopTunnel);
     document.getElementById('btn-download').addEventListener('click', downloadCloudflared);
     document.getElementById('btn-copy-url').addEventListener('click', copyTunnelUrl);
-    document.getElementById('btn-copy-link').addEventListener('click', copyDownloadLink);
 
     try {
         const resp = await apiGet('/api/platform');
@@ -80,7 +79,6 @@ function switchTab(tabName) {
 
     if (tabName === 'settings') {
         loadReleaseInfo();
-        loadManualDownloadLink();
     }
 }
 
@@ -286,6 +284,8 @@ async function loadReleaseInfo() {
 async function downloadCloudflared() {
     const btn = document.getElementById('btn-download');
     const progressBar = document.getElementById('download-progress');
+    const proxySelect = document.getElementById('proxy-select');
+    const githubProxy = proxySelect ? proxySelect.value : '';
 
     if (!PLATFORM_MAP[serverPlatform]) {
         showSnackbar('不支持的平台: ' + serverPlatform);
@@ -298,7 +298,11 @@ async function downloadCloudflared() {
     progressBar.classList.add('progress-indeterminate');
 
     try {
-        const resp = await apiPost('/api/download', { platform: serverPlatform });
+        const body = { platform: serverPlatform };
+        if (githubProxy) {
+            body.github_proxy = githubProxy;
+        }
+        const resp = await apiPost('/api/download', body);
 
         if (resp && resp.data && resp.data.success) {
             showSnackbar('下载完成');
@@ -314,30 +318,6 @@ async function downloadCloudflared() {
         btn.innerHTML = '<span class="material-symbols-outlined">download</span> 下载最新版本';
         progressBar.classList.remove('progress-indeterminate');
         progressBar.classList.add('hidden');
-    }
-}
-
-function loadManualDownloadLink() {
-    const linkEl = document.getElementById('manual-download-link');
-    const mapping = PLATFORM_MAP[serverPlatform];
-    if (!mapping) {
-        linkEl.textContent = '不支持的平台';
-        linkEl.removeAttribute('href');
-        return;
-    }
-    const url = 'https://github.com/cloudflare/cloudflared/releases/latest/download/' + mapping.file;
-    linkEl.href = url;
-    linkEl.textContent = url;
-}
-
-function copyDownloadLink() {
-    const linkEl = document.getElementById('manual-download-link');
-    if (linkEl && linkEl.href && linkEl.href !== '#') {
-        navigator.clipboard.writeText(linkEl.href).then(() => {
-            showSnackbar('下载链接已复制到剪贴板');
-        }).catch(() => {
-            showSnackbar('复制失败');
-        });
     }
 }
 

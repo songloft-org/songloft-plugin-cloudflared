@@ -123,6 +123,18 @@
                             <span id="detected-platform" class="platform-badge">检测中...</span>
                         </span>
                     </div>
+                    <div class="info-row">
+                        <span class="info-label">GitHub 代理</span>
+                        <span class="info-value" style="flex:1;max-width:200px;">
+                            <select id="proxy-select" class="select-field">
+                                <option value="">直连 (不使用代理)</option>
+                                <option value="https://ghfast.top/">ghfast.top</option>
+                                <option value="https://ghproxy.com/">ghproxy.com</option>
+                                <option value="https://gh.con.sh/">gh.con.sh</option>
+                                <option value="https://mirror.ghproxy.com/">mirror.ghproxy.com</option>
+                            </select>
+                        </span>
+                    </div>
                     <div class="action-row">
                         <button id="btn-download" class="btn-filled" disabled>
                             <span class="material-symbols-outlined">download</span>
@@ -131,28 +143,6 @@
                     </div>
                     <div id="download-progress" class="progress-linear hidden">
                         <div class="progress-linear-fill"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 手动下载卡片 -->
-            <div class="card">
-                <div class="card-header">
-                    <span class="material-symbols-outlined">link</span>
-                    <span class="card-title">手动下载</span>
-                </div>
-                <div class="card-body">
-                    <p style="color:var(--md-on-surface-variant);font-size:14px;margin:0 0 12px;">
-                        如果自动下载失败，可以手动下载后通过其他方式安装。
-                    </p>
-                    <div class="info-row" style="flex-direction:column;align-items:flex-start;gap:8px;">
-                        <span class="info-label">下载链接</span>
-                        <span class="info-value" style="display:flex;align-items:flex-start;gap:8px;width:100%;">
-                            <a id="manual-download-link" href="#" style="color:var(--md-primary);text-decoration:none;word-break:break-all;font-size:12px;flex:1;">加载中...</a>
-                            <button id="btn-copy-link" class="btn-copy" title="复制链接" style="flex-shrink:0;">
-                                <span class="material-symbols-outlined" style="font-size:16px;">content_copy</span>
-                            </button>
-                        </span>
                     </div>
                 </div>
             </div>
