@@ -9,7 +9,11 @@
   "entryPath": "cloudflared",
   "main": "main.js",
   "minHostVersion": "1.3.0",
-  "permissions": ["storage","command","fs"],
+  "permissions": [
+    "storage",
+    "command",
+    "fs"
+  ],
   "updateUrl": "https://raw.githubusercontent.com/songloft-org/songloft-plugin-cloudflared/main/manifest.json",
   "entryHash": "",
   "zipHash": ""
