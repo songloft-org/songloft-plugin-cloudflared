@@ -1,7 +1,7 @@
 /**
  * Cloudflared 隧道 — 前端应用逻辑
  */
-import { apiGet, apiPost } from './common.js';
+const { apiGet, apiPost } = SongloftPlugin;
 
 const PLATFORM_MAP = {
     'darwin-amd64':  { file: 'cloudflared-darwin-amd64.tgz' },
