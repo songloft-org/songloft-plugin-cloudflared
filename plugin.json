@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/songloft-org/plugin-toolchain/main/schemas/plugin.schema.json",
   "name": "Cloudflared 隧道",
-  "version": "0.1.0",
+  "version": "2026.6.8",
   "description": "通过 Cloudflare Tunnel 将本地 Songloft 服务暴露到公网",
   "author": "Songloft Team",
   "homepage": "",
