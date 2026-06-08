@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: '版本号（留空则自动使用 plugin.json 中的版本）'
+        description: '版本号（留空则自动生成日期版本，格式：Y.M.D）'
         required: false
         default: ''
 
@@ -31,7 +31,7 @@ jobs:
           if [ -n "${{ github.event.inputs.version }}" ]; then
             VERSION="${{ github.event.inputs.version }}"
           else
-            VERSION=$(node -p "require('./plugin.json').version")
+            VERSION="$(date +'%Y.%-m.%-d')"
           fi
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
           echo "Generated version: ${VERSION}"
