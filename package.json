@@ -1,6 +1,6 @@
 {
   "name": "cloudflared",
-  "version": "2026.6.8",
+  "version": "2026.6.9",
   "description": "通过 Cloudflare Tunnel 将本地 Songloft 服务暴露到公网",
   "private": true,
   "scripts": {
