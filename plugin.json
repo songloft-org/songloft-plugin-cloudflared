@@ -14,7 +14,8 @@
     "command",
     "fs"
   ],
-  "updateUrl": "https://raw.githubusercontent.com/songloft-org/songloft-plugin-cloudflared/main/manifest.json",
+  "updateUrl": "https://raw.githubusercontent.com/songloft-org/songloft-plugin-cloudflared/main/plugin.json",
+  "download_url": "https://github.com/songloft-org/songloft-plugin-cloudflared/releases/download/v2026.6.8/cloudflared.jsplugin.zip",
   "entryHash": "",
   "zipHash": ""
 }
