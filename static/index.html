@@ -73,7 +73,7 @@
                     <div id="tunnel-url" class="tunnel-url hidden">
                         <span class="material-symbols-outlined" style="font-size:18px;flex-shrink:0;">link</span>
                         <a id="tunnel-link" href="#" target="_blank"></a>
-                        <button id="btn-copy-url" class="btn-copy" title="复制">
+                        <button id="btn-copy-url" class="btn-copy" title="复制" aria-label="复制">
                             <span class="material-symbols-outlined" style="font-size:18px;">content_copy</span>
                         </button>
                     </div>
@@ -123,7 +123,7 @@
                     <div class="info-row">
                         <span class="info-label">GitHub 代理</span>
                         <span class="info-value" style="flex:1;max-width:200px;">
-                            <select id="proxy-select" class="select-field">
+                            <select id="proxy-select" class="select-field" aria-label="选择代理">
                                 <option value="">直连 (不使用代理)</option>
                                 <option value="https://ghfast.top/">ghfast.top</option>
                                 <option value="https://ghproxy.com/">ghproxy.com</option>
@@ -148,12 +148,12 @@
     </div>
 
 <!-- Tab Bar (Bottom Navigation) -->
-<div class="tab-bar">
-    <button class="tab-item active" data-tab="home">
+<div class="tab-bar" role="tablist">
+    <button class="tab-item active" data-tab="home" role="tab">
         <span class="material-symbols-outlined">home</span>
         <span>首页</span>
     </button>
-    <button class="tab-item" data-tab="settings">
+    <button class="tab-item" data-tab="settings" role="tab">
         <span class="material-symbols-outlined">settings</span>
         <span>设置</span>
     </button>
